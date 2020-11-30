@@ -31,13 +31,13 @@ public class LeaderboardService {
 		return this.currentLeaderboard;
 	}
 	
-	@Scheduled(fixedRate = 1000)
+	@Scheduled(fixedRate = 900_000)
 	public void updateLeaderboard() throws IOException {
 		
 		try(CloseableHttpClient httpClient = HttpClients.createDefault()) {
 			
 			HttpGet request = new HttpGet(leaderboardServerUrl);
-			request.addHeader("session", sessionCookie);
+			request.addHeader("cookie", "session="+sessionCookie);
 			
 			CloseableHttpResponse response = httpClient.execute(request);
 			
